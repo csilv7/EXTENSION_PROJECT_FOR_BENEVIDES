@@ -16,9 +16,10 @@ ui <- dashboardPage(
     titleWidth = 220,
     title = dashboardBrand(
       title = tags$strong("BENEVIDES"),
-      image = "BRASÃO.png",
-      color ="lightblue"
-    )
+      image = "BRASÃO_BENEV.jpeg",
+      color = "lightblue"
+    ),
+    skin = "lightblue"
   ),
   
   # -------------------
@@ -164,7 +165,7 @@ ui <- dashboardPage(
   # [2.4] Rodapé
   # ------------
   footer = dashboardFooter(
-    left = strong(paste0("Atualizado em ",  format(today(), format = "%d/%m/%Y"))),
+    left = strong(paste0("Atualizado em ",  format(lubridate::today(), format = "%d/%m/%Y"))),
     right = strong("Faculdade de Estatística")
   )
 )
