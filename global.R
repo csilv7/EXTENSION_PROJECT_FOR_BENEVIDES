@@ -12,9 +12,9 @@ library(htmlwidgets)
 
 # Manipulações de Dados
 library(dplyr)
-library(tidyr)
-library(purrr)
-library(stringr)
+#library(tidyr)
+#library(purrr)
+#library(stringr)
 
 # Nuvem de Palavras
 #library(tm)

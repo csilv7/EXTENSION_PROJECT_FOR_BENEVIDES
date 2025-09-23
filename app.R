@@ -58,36 +58,29 @@ ui <- dashboardPage(
       # [2.3.2] ABA: Educação
       # =====================
       # ======================
-      # [2.3.2] ABA: Segurança
+      # [2.3.3] ABA: Segurança
       # ======================
       # ============================
-      # [2.3.2] ABA: Emprego & Renda
+      # [2.3.4] ABA: Emprego & Renda
       # ============================
     )
   ),
   
-  # ------------
+  # ============
   # [2.4] Rodapé
-  # ------------
+  # ============
   footer = dashboardFooter(
     left = strong(paste0("Atualizado em ",  format(lubridate::today(), format = "%d/%m/%Y"))),
     right = strong("Faculdade de Estatística")
   )
 )
 
-# -----------------------------
+# =============================
 # [3] BackEnd - Camada Servidor
-# -----------------------------
-server <- function(input, output) {
-  # --------------------------
-  # [3.3] SUB-ABA: VISÃO GERAL
-  # --------------------------
-  # --------------------------
-  # [3.4] SUB-ABA: VISÃO GEOGR
-  # --------------------------
-}
+# =============================
+server <- function(input, output) {}
 
-# ----------------------------
+# ============================
 # [4] Produto Final: Dashboard
-# ----------------------------
+# ============================
 shinyApp(ui, server)
