@@ -13,6 +13,7 @@ library(htmlwidgets)
 
 # Tratamento/Manipulações de Dados
 library(dplyr)
+library(lubridate)
 #library(tidyr)
 #library(purrr)
 library(stringr)
@@ -34,47 +35,15 @@ library(echarts4r)
 library(sf)
 library(leaflet)
 
-
 # ==================
-# [2] CARREGAR DADOS
-# ==================
-# ==============
-# [2.2] EDUCAÇÃO
-# ==============
-
-#CME_PAE <- readRDS("dataset/CME_DATASET_PAE.rds")
-#source("preprocessingDataset/CME_PAE.R")
-
-# =====================
-# [2.2] EMPREGO E RENDA
-# =====================
-
-#ESPECIALIDADES_CBMPA <- readRDS("dataset/ADJ_ESPECIALIDADES_CBMPA.rds")
-#source("preprocessingDataset/ESPECIALIDADES_CBMPA.R")
-
-# ===============
-# [2.3] SEGURANÇA
-# ===============
-# -------------------
-# [2.3.1] CONSOLIDADO
-# -------------------
-data.consolid <- readRDS("dataset/security/consolid_pa.rds") |> 
-  right_join(
-    by = "MUNICÍPIO(S)",
-    geobr::read_municipality(code_muni = "PA", year = 2024) |>
-      mutate(`MUNICÍPIO(S)` = str_to_upper(stringi::stri_trans_general(name_muni, "Latin-ASCII"))) |>
-      select(`MUNICÍPIO(S)`, geom)
-  )
-
-# ==================
-# [3] OBJETOS USUAIS
+# [2] OBJETOS USUAIS
 # ==================
 
 # ---------------------------
 # [3.1] DIVISÃO POR RI & IBGE
 # ---------------------------
-# # Divisão por RI (Guajará)
-# RI <- c("Belém", "Ananindeua", "Marituba", "Benevides", "Santa Bárbara do Pará")
+# Divisão por RI (Guajará)
+RI <- c("Belém", "Ananindeua", "Marituba", "Benevides", "Santa Bárbara do Pará", "Santo Antônio do Tauá")
 # 
 # # RI Ajustado
 # RI.adj <- str_to_upper(stringi::stri_trans_general(RI, "Latin-ASCII"))
@@ -149,8 +118,36 @@ data.consolid <- readRDS("dataset/security/consolid_pa.rds") |>
 # )
 
 # ==================
-# [4] FUNÇÕES USUAIS
+# [3] FUNÇÕES USUAIS
 # ==================
+
+# ==================
+# [4] CARREGAR DADOS
+# ==================
+# ==============
+# [4.1] EDUCAÇÃO
+# ==============
+
+#CME_PAE <- readRDS("dataset/CME_DATASET_PAE.rds")
+#source("preprocessingDataset/CME_PAE.R")
+
+# =====================
+# [4.2] EMPREGO E RENDA
+# =====================
+
+#ESPECIALIDADES_CBMPA <- readRDS("dataset/ADJ_ESPECIALIDADES_CBMPA.rds")
+#source("preprocessingDataset/ESPECIALIDADES_CBMPA.R")
+
+# ===============
+# [4.3] SEGURANÇA
+# ===============
+# -------------------
+# [4.3.1] CONSOLIDADO
+# -------------------
+
+# data.consolid <- readRDS("dataset/security/consolid_pa.rds")
+
+load(file = "dataset/security/consoliddd.RData")
 
 # ==================
 # [5] CHAMAR MÓDULOS
@@ -159,3 +156,4 @@ data.consolid <- readRDS("dataset/security/consolid_pa.rds") |>
 # [5.3] SEGURANÇA
 # ==================
 source("modules/security/security_local.R")
+source("modules/security/security_overview.R")

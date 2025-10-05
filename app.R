@@ -17,9 +17,10 @@ ui <- dashboardPage(
     title = dashboardBrand(
       title = tags$strong("BENEVIDES"),
       image = "BRASÃO_BENEV.jpeg",
-      color = "lightblue"
+      color = "primary"
     ),
-    skin = "lightblue"
+    skin = "primary",
+    disable = FALSE
   ),
   
   # ===================
@@ -63,6 +64,23 @@ ui <- dashboardPage(
           "
         )
       ),
+      
+      tags$head(
+        tags$style(
+          HTML(
+            "
+            .card-tools [data-card-widget='maximize'] .fas {
+              color: gray !important;
+            }
+            .card-tools [data-card-widget='maximize']:hover .fas {
+              color: darkgray !important;
+            }
+            "
+          )
+        )
+      ),
+      
+      
       tags$script(
         HTML(
           "
@@ -106,7 +124,8 @@ ui <- dashboardPage(
       # ======================
       # [2.3.4] ABA: Segurança
       # ======================
-      mod_security_local_ui("security_local")
+      mod_security_local_ui("security_local"),
+      mod_security_overview_ui("security_overview")
     )
   ),
   
@@ -133,6 +152,7 @@ server <- function(input, output) {
   # [3.3] Segurança
   # ===============
   mod_security_local_server("security_local")
+  mod_security_overview_server("security_overview")
 }
 
 # ============================

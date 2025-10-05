@@ -15,19 +15,23 @@ mod_security_local_ui <- function(id) {
       title = HTML("<h5><strong>QUANTITATIVO DE OCORRÊNCIAS - MAPA DE CALOR</strong></h5>"),
       maximizable = TRUE,
       solidHeader = TRUE,
-      status = "lightblue", #background = "gray",
+      status = "primary", #background = "gray",
       collapsible = TRUE,
       width = 12, 
-      height = "700px",
+      height = "800px",
       tabBox(
-        width = 12, height = "600px",
+        maximizable = TRUE,
+        solidHeader = FALSE,
+        status = "primary", #background = "gray",
+        collapsible = FALSE,
+        width = 12, height = "700px",
         tabPanel(
           title = "NÍVEL ESTADUAL", icon = icon("globe"),
-          leafletOutput(ns("quant_map_pa"), width = "100%", height = "550px")
+          leafletOutput(ns("quant_map_pa"), width = "100%", height = "650px")
         ),
         tabPanel(
           title = "NÍVEL RI GUAJARÁ", icon = icon("search-location"),
-          leafletOutput(ns("quant_map_ri"), width = "100%", height = "550px")
+          leafletOutput(ns("quant_map_ri"), width = "100%", height = "650px")
         )
       )
     )
@@ -50,13 +54,6 @@ mod_security_local_server <- function(id) {
     # [2.1] MAPA - PARÁ
     # -----------------
     output$quant_map_pa <- renderLeaflet({
-      # Tratamento dos Dados
-      df.map_pa <- data.consolid |>
-        group_by(`MUNICÍPIO(S)`, geom) |> 
-        summarise(Quantitativo = n(), .groups = "drop") |>
-        st_as_sf() |>
-        st_transform(4326)
-      
       # Município alvo
       muni.target <- "BENEVIDES"
       
@@ -134,14 +131,6 @@ mod_security_local_server <- function(id) {
     # [2.2] MAPA - RI
     # ---------------
     output$quant_map_ri <- renderLeaflet({
-      # Tratamento dos Dados
-      df.map_ri <- data.consolid |> 
-        filter(`REGIÃO DE INTEGRAÇÃO` == "REGIAO GUAJARA") |>
-        group_by(`MUNICÍPIO(S)`, geom) |> 
-        summarise(Quantitativo = n(), .groups = "drop") |>
-        st_as_sf() |>
-        st_transform(4326)
-      
       # Município alvo
       muni.target <- "BENEVIDES"
       
@@ -207,11 +196,11 @@ mod_security_local_server <- function(id) {
             digits = 0
           )
         ) |>
-        setView(lng = -48.387793939408915, lat = -1.365015993088315, zoom = 10) |>
+        setView(lng = -48.290590814562975, lat = -1.2269949863242262, zoom = 10) |>
         addEasyButton(
           easyButton(
             icon = "fa-globe", title = "RESETAR O ZOOM",
-            onClick = htmlwidgets::JS("function(btn, map){map.setView([-1.365015993088315, -48.387793939408915], 10);}")
+            onClick = htmlwidgets::JS("function(btn, map){map.setView([-1.2269949863242262, -48.290590814562975], 10);}")
           )
         )
     })
